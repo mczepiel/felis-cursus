@@ -14,13 +14,46 @@
                 "subredditId": "catsstandingup",
                 "subredditLabel": "Cats Standing Up"
             }
+        },
+        "catFlow": {
+            "prototype": "ui/cat-flow.reel",
+            "properties": {
+                "element": {"#": "catFlow"}
+            },
+            "bindings": {
+                "catImages": {"<-": "@promiseController.value"}
+            }
+        },
+        "progress": {
+            "prototype": "ui/progress.reel",
+            "properties": {
+                "element": {"#": "progress"}
+            }
+        },
+        "promiseController": {
+            "prototype": "montage/core/promise-controller",
+            "bindings": {
+                "promise": {"<-": "@owner.imagesPromise"}
+            }
+        },
+        "substitution": {
+            "prototype": "montage/ui/substitution.reel",
+            "properties": {
+                "element": {"#": "substitution"}
+            },
+            "bindings": {
+                "switchValue": {"<-": "@promiseController.fulfilled ? 'fulfilled' : 'pending'"}
+            }
         }
     }
     </script>
 </head>
 <body>
     <div data-montage-id="main" data-montage-skin="light" class="Main">
-
+        <div data-montage-id="substitution">
+            <div data-montage-id="progress" data-arg="pending"></div>
+            <div data-montage-id="catFlow" data-arg="fulfilled"></div>
+        </div>
     </div>
 </body>
 </html>
