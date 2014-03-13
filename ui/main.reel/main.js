@@ -12,12 +12,16 @@ var Q = require("q");
  */
 exports.Main = Component.specialize(/** @lends Main# */ {
 
-    catImagesPromise: {
+    imagesPromise: {
         value: null
     },
 
-    catImages: {
-        value: []
+    subredditLabel: {
+        value: "Cats Standing Up"
+    },
+
+    subredditId: {
+        value: "catsstandingup"
     },
 
     constructor: {
@@ -26,39 +30,40 @@ exports.Main = Component.specialize(/** @lends Main# */ {
         }
     },
 
-    templateDidLoad: {
-        value: function() {
-            var component = this;
-
-            this.addPathChangeListener("selectedSub", this, "handleSelectedSubChange");
-            this.templateObjects.subSelect.content = [
-                {label: "Cats Standing Up", sub: "catsstandingup"},
-                {label: "DIY", sub: "diy"},
-                {label: "Lord of the Rings", sub: "lotr"},
-            ];
-
+    enterDocument: {
+        value: function (firstTime) {
+            if (firstTime) {
+                this.addPathChangeListener("subredditId", this, "handleSubredditIdChange");
+                this.fetchImages();
+            }
         }
     },
 
-    handleSelectedSubChange: {
-        value: function (selectedSub) {
+    handleSubredditIdChange: {
+        value: function () {
+            this.fetchImages();
+        }
+    },
 
-            if (!selectedSub) {
-                this.catImagesPromise = null;
+    fetchImages: {
+        value: function () {
+            var subId = this.subredditId;
+
+            if (!subId) {
+                this.imagesPromise = null;
                 return;
             }
 
-            this.catImagesPromise = Jsonp.request(
-                "http://www.reddit.com/r/" + selectedSub + ".json?limit=100", "jsonp"
-            ).then(function (jsonData) {
-                var catImages = [];
-                for (var i = 0; i < jsonData.data.children.length; i++) {
-                    var item = jsonData.data.children[i];
-                    if (item.data.url.toLowerCase().match(/i.imgur.com\/[a-zA-Z0-9]+.(jpg|gif)/)) {
-                        catImages.push(item.data.url.replace(".jpg", "m.jpg"));
-                    }
-                }
-                return catImages;
+            this.imagesPromise = Jsonp.request(
+                "http://www.reddit.com/r/" + subId + ".json?limit=100", "jsonp")
+            .then(function (jsonData) {
+                var children = jsonData.data.children;
+
+                return children.filter(function (item) {
+                    return item.data.url.toLowerCase().match(/i.imgur.com\/[a-zA-Z0-9]+.(jpg|gif)/);
+                }).map(function (item) {
+                    return item.data.url.replace(".jpg", "m.jpg");
+                })
             })
             .delay(1000);
         }

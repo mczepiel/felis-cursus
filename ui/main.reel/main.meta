@@ -10,19 +10,26 @@
       }
     }
   },
-  "blueprint_unnamed_selectedSub": {
+  "blueprint_unnamed_imagesPromise": {
     "prototype": "montage/core/meta/property-blueprint",
     "properties": {
-      "name": "selectedSub",
+      "name": "imagesPromise",
+      "blueprint": {"@": "root"},
+      "valueType": "object"
+    }
+  },
+  "blueprint_unnamed_subredditLabel": {
+    "prototype": "montage/core/meta/property-blueprint",
+    "properties": {
+      "name": "subredditLabel",
       "blueprint": {"@": "root"}
     }
   },
-  "blueprint_unnamed_catImagesPromise": {
+  "blueprint_unnamed_subredditId": {
     "prototype": "montage/core/meta/property-blueprint",
     "properties": {
-      "name": "catImagesPromise",
-      "blueprint": {"@": "root"},
-      "valueType": "object"
+      "name": "subredditId",
+      "blueprint": {"@": "root"}
     }
   },
   "root": {
@@ -34,13 +41,15 @@
       },
       "parent": {"@": "blueprint_component_reference"},
       "propertyBlueprints": [
-        {"@": "blueprint_unnamed_selectedSub"},
-        {"@": "blueprint_unnamed_catImagesPromise"}
+        {"@": "blueprint_unnamed_imagesPromise"},
+        {"@": "blueprint_unnamed_subredditLabel"},
+        {"@": "blueprint_unnamed_subredditId"}
       ],
       "propertyBlueprintGroups": {
         "Main": [
-          {"@": "blueprint_unnamed_selectedSub"},
-          {"@": "blueprint_unnamed_catImagesPromise"}
+          {"@": "blueprint_unnamed_imagesPromise"},
+          {"@": "blueprint_unnamed_subredditLabel"},
+          {"@": "blueprint_unnamed_subredditId"}
         ]
       },
       "module": {
