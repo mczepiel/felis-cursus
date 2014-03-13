@@ -13,21 +13,6 @@
                 "element": {"#": "main"}
             }
         },
-        "image": {
-            "prototype": "digit/ui/image.reel",
-            "properties": {
-                "element": {"#": "image"}
-            },
-            "bindings": {
-                "src": {"<-": "@flow:iteration.object"}
-            }
-        },
-        "rainbow": {
-            "prototype": "ui/rainbow.reel",
-            "properties": {
-                "element": {"#": "rainbow"}
-            }
-        },
         "flow": {
             "prototype": "montage/ui/flow.reel",
             "properties": {
@@ -173,7 +158,22 @@
                 "stride": ""
             },
             "bindings": {
-                "contentController": {"<-": "@owner.contentController"}
+                "content": {"<-": "@owner.catImages"}
+            }
+        },
+        "image": {
+            "prototype": "digit/ui/image.reel",
+            "properties": {
+                "element": {"#": "image"}
+            },
+            "bindings": {
+                "src": {"<-": "@flow:iteration.object"}
+            }
+        },
+        "rainbow": {
+            "prototype": "ui/rainbow.reel",
+            "properties": {
+                "element": {"#": "rainbow"}
             }
         }
     }
