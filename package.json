@@ -2,7 +2,7 @@
   "name": "cat-flow",
   "version": "0.1.0",
   "dependencies": {
-    "montage": "~0.14.3",
+    "montage": "git+https://github.com/montagejs/montage.git#438a40b1389f744b0a5cbeefdee3a6126e68b5cf",
     "digit": "~0.4.0",
     "q": "~1.0.0"
   },
